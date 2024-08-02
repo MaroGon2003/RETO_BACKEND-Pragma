@@ -26,7 +26,7 @@ public class UserRestController {
 
     @Operation(summary = "Add a new usuario")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "User created", content = @Content(schema = @Schema(implementation = Void.class))),
+            @ApiResponse(responseCode = "201", description = "User created", content = @Content),
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @PostMapping("/")
