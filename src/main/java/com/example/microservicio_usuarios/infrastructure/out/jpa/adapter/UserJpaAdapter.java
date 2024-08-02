@@ -25,7 +25,7 @@ public class UserJpaAdapter implements IUserPersistencePort {
     }
 
     @Override
-    public boolean exisrUserByDni(int dni) {
+    public boolean exisUserByDni(int dni) {
         return userRepository.existsByDni(dni);
     }
 

@@ -2,10 +2,8 @@ package com.example.microservicio_usuarios.infrastructure.input.rest;
 
 import com.example.microservicio_usuarios.application.dto.request.UserRequestDto;
 import com.example.microservicio_usuarios.application.handler.IUserHandler;
-import com.example.microservicio_usuarios.domain.exception.UserAlreadyExists;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
@@ -24,10 +22,11 @@ public class UserRestController {
 
     private final IUserHandler userHandler;
 
-    @Operation(summary = "Add a new usuario")
+    @Operation(summary = "Add a new usuario", description = "Creates a new user in the system if the user does not already exist.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "User created", content = @Content),
-            @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
+            @ApiResponse(responseCode = "201", description = "User created", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "409", description = "User already exists", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content(mediaType = "application/json"))
     })
     @PostMapping("/")
     public ResponseEntity<Void> saveObject(@RequestBody @Valid  UserRequestDto userRequestDto) {

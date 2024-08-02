@@ -8,6 +8,6 @@ public interface IUserPersistencePort {
 
     boolean existsUserById(long id);
 
-    boolean exisrUserByDni(int dni);
+    boolean exisUserByDni(int dni);
 
 }
