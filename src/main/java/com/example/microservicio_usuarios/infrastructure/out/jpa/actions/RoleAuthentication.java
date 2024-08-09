@@ -3,13 +3,15 @@ package com.example.microservicio_usuarios.infrastructure.out.jpa.actions;
 import com.example.microservicio_usuarios.infrastructure.out.jpa.entity.RolEntity;
 import com.example.microservicio_usuarios.infrastructure.out.jpa.repository.IRolRepository;
 import com.example.microservicio_usuarios.infrastructure.out.jpa.exception.RoleNotFoundException;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 
-@NoArgsConstructor
 public class RoleAuthentication {
+
+    private RoleAuthentication() {
+        // Private constructor to prevent instantiation
+    }
 
     public static RolEntity getRoleWithAuthentication(IRolRepository roleRepository) {
         //Gets the session context
@@ -27,7 +29,7 @@ public class RoleAuthentication {
     }
 
     public static Long provideRoleByName(String roleName) {
-        Long idRole = 3L;
+        Long idRole = 0L;
         if (roleName.equalsIgnoreCase("ADMIN")) {
             idRole = 2L;
         } else if (roleName.equalsIgnoreCase("OWNER")) {

@@ -3,32 +3,37 @@ package com.example.microservicio_usuarios.infrastructure.configuration.security
 import com.example.microservicio_usuarios.infrastructure.out.jpa.adapter.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
-@NoArgsConstructor
+@Component
 public class JwtToken {
 
+    private JwtToken() {
+        // Private constructor to prevent instantiation
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
+
     private static final String ACCESS_TOKEN_SECRET = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXvCJ9";
 
     public static String generateToken(UserDetails userDetails) {
         //Token expiration time
-        long expirationTime = 3600L * 1_000L;
-        //Token expiration date
+        long expirationTime = 80000000000L;
+
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
-        //User email
+
         String email = userDetails.getUsername();
-        //User role
+
         String role = userDetails
                 .getAuthorities()
                 .stream()
@@ -91,7 +96,7 @@ public class JwtToken {
             LOGGER.error("Expired token");
         } catch (IllegalArgumentException e) {
             LOGGER.error("Empty token");
-        } catch (SignatureException e) {
+        } catch (SecurityException e) {
             LOGGER.error("Signature failure");
         }
         return false;

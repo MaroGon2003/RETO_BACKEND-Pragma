@@ -24,7 +24,8 @@ public class UserJpaAdapter implements IUserPersistencePort {
     public UserModel saveUser(UserModel user) {
         UserEntity userEntity = userRepository.save(userEntityMapper.toEntity(user));
 
-        System.out.println("su rol es" + userEntity.getRolId().getName());
+        userEntity.setRolId(getRoleWithAuthentication(rolRepository));
+        System.out.println("su rol es:  ->" + userEntity.getRolId().getName());
 
         return userEntityMapper.toUserModel(userEntity);
     }

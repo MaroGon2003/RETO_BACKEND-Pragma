@@ -38,10 +38,4 @@ public class UserRestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-
-    @PostMapping("/prueba")
-    public String prueba() {
-        return "prueba";
-    }
-
 }

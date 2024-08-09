@@ -42,6 +42,7 @@ public class UserRequestDto {
     private String password;
 
     @NotNull
+    @Min(value = 1, message = "El id del rol debe ser un número positivo mayor a 0")
     private Long rolId;
 
 }
