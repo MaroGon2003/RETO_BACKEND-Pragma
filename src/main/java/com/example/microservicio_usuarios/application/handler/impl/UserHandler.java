@@ -24,4 +24,9 @@ public class UserHandler implements IUserHandler {
         userServicePort.saveUser(user);
 
     }
+
+    @Override
+    public boolean validateOwner(Long userId) {
+        return userServicePort.validateOwner(userId);
+    }
 }

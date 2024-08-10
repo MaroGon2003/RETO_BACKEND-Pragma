@@ -6,4 +6,6 @@ public interface IUserServicePort {
 
         void saveUser(UserModel user);
 
+        boolean validateOwner(Long userId);
+
 }

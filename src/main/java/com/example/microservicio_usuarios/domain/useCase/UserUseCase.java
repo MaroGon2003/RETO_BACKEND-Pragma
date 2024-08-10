@@ -1,42 +1,54 @@
 package com.example.microservicio_usuarios.domain.useCase;
 
 import com.example.microservicio_usuarios.domain.api.IUserServicePort;
-import com.example.microservicio_usuarios.domain.exception.ErrorMessages;
+import com.example.microservicio_usuarios.domain.exception.UserNotFoundException;
 import com.example.microservicio_usuarios.domain.exception.UserUnderAgeException;
 import com.example.microservicio_usuarios.domain.model.UserModel;
 import com.example.microservicio_usuarios.domain.spi.IEncrypterPort;
 import com.example.microservicio_usuarios.domain.spi.IUserPersistencePort;
 import com.example.microservicio_usuarios.domain.exception.UserAlreadyExists;
+import com.example.microservicio_usuarios.domain.utils.DomainConstants;
+
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 
 public class UserUseCase implements IUserServicePort {
 
     private final IUserPersistencePort userPersistencePort;
-    private final IEncrypterPort encrypterPort;
+    private final IEncrypterPort encryptPort;
 
-    public UserUseCase(IUserPersistencePort userPersistencePort, IEncrypterPort encrypterPort) {
+    public UserUseCase(IUserPersistencePort userPersistencePort, IEncrypterPort encryptPort) {
         this.userPersistencePort = userPersistencePort;
-        this.encrypterPort = encrypterPort;
+        this.encryptPort = encryptPort;
     }
 
 
     @Override
     public void saveUser(UserModel user) {
-        if(userPersistencePort.exisUserByDni(user.getDni())){
-            throw new UserAlreadyExists(ErrorMessages.USER_ALREADY_EXISTS);
+        if(userPersistencePort.existUserByDni(user.getDni())){
+            throw new UserAlreadyExists(DomainConstants.USER_ALREADY_EXISTS);
         }
         LocalDate birthDateLocal = user.getBirdDate();
         if(Period.between(birthDateLocal, LocalDate.now()).getYears() < 18){
-            throw new UserUnderAgeException(ErrorMessages.USER_UNDER_AGE);
+            throw new UserUnderAgeException(DomainConstants.USER_UNDER_AGE);
         }
 
-        user.setPassword(encrypterPort.encryptPassword(user.getPassword()));
+        user.setPassword(encryptPort.encryptPassword(user.getPassword()));
 
         userPersistencePort.saveUser(user);
     }
 
+    @Override
+    public boolean validateOwner(Long userId) {
+        UserModel user = userPersistencePort.getUserById(userId);
+
+        if(user == null){
+            throw new UserNotFoundException(DomainConstants.USER_NOT_FOUND);
+        }
+        return Objects.equals(user.getRolId(), DomainConstants.ROL_OWNER_ID);
+    }
 
 
 }

@@ -26,7 +26,7 @@ public class UserRequestDto {
     @NotNull
     @NotBlank
     @Size(max = 13)
-    @Pattern(regexp = "\\+?\\d+", message = "El celular debe contener un máximo de 13 caracteres y puede contener el símbolo +")
+    @Pattern(regexp = "\\+?\\d+", message = "The phone number should max 13 digits and only numbers and also can start with +")
     private String phone;
 
     @NotNull
@@ -42,7 +42,8 @@ public class UserRequestDto {
     private String password;
 
     @NotNull
-    @Min(value = 1, message = "El id del rol debe ser un número positivo mayor a 0")
+    @Min(value = 2, message = "The rolId should be greater than 1")
+    @Max(value = 3, message = "The rolId should be less than 4")
     private Long rolId;
 
 }

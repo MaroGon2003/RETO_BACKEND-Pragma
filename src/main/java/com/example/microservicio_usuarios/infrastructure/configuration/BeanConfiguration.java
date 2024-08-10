@@ -6,7 +6,6 @@ import com.example.microservicio_usuarios.domain.spi.IUserPersistencePort;
 import com.example.microservicio_usuarios.domain.useCase.UserUseCase;
 import com.example.microservicio_usuarios.infrastructure.out.encrypter.adapter.EncrypterAdapter;
 import com.example.microservicio_usuarios.infrastructure.out.jpa.adapter.UserJpaAdapter;
-import com.example.microservicio_usuarios.infrastructure.out.jpa.mapper.IRolEntityMapper;
 import com.example.microservicio_usuarios.infrastructure.out.jpa.mapper.IUserEntityMapper;
 import com.example.microservicio_usuarios.infrastructure.out.jpa.repository.IRolRepository;
 import com.example.microservicio_usuarios.infrastructure.out.jpa.repository.IUserRepository;
@@ -23,11 +22,10 @@ public class BeanConfiguration {
     private final IUserRepository userRepository;
     private final IUserEntityMapper userEntityMapper;
     private final IRolRepository rolRepository;
-    private final IRolEntityMapper rolEntityMapper;
 
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserJpaAdapter(userRepository, userEntityMapper, rolRepository, rolEntityMapper);
+        return new UserJpaAdapter(userRepository, userEntityMapper, rolRepository);
     }
 
     @Bean

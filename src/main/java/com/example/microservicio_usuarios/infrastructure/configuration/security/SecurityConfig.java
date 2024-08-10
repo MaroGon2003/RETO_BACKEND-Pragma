@@ -36,10 +36,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authRequest -> authRequest
                         .requestMatchers("/auth/login", "/swagger-ui.html", "/swagger-ui/**",
-                                "/v3/api-docs/**", "/actuator/health").permitAll()
+                                "/v3/api-docs/**", "/actuator/health", "/user/**").permitAll()
                         .anyRequest().authenticated()
                         )
                 .formLogin(AbstractHttpConfigurer::disable)
