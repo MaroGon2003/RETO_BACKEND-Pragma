@@ -39,8 +39,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers("/auth/login", "/swagger-ui.html", "/swagger-ui/**",
-                                "/v3/api-docs/**", "/actuator/health", "/user/**").permitAll()
+                        .requestMatchers("/auth/**", "/swagger-ui.html", "/swagger-ui/**",
+                                "/v3/api-docs/**", "/actuator/health", "/user/validate-owner/**").permitAll()
                         .anyRequest().authenticated()
                         )
                 .formLogin(AbstractHttpConfigurer::disable)

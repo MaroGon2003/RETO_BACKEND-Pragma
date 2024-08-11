@@ -21,7 +21,7 @@ public class AuthHandler implements IAuthHandler {
 
     private final AuthenticationManager authenticationManager;
     private final IUserServicePort userServicePort;
-    private IUserRequestMapper userRequestMapper;
+    private final IUserRequestMapper userRequestMapper;
 
     @Override
     public AuthResponseDto login(LoginRequestDto loginRequestDto) {
@@ -36,6 +36,6 @@ public class AuthHandler implements IAuthHandler {
 
     @Override
     public void register(UserRequestDto userRequestDto) {
-        userServicePort.saveUser(userRequestMapper.toUserModel(userRequestDto));
+        userServicePort.registerUser(userRequestMapper.toUserModel(userRequestDto));
     }
 }

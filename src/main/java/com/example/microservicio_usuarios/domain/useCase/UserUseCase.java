@@ -50,5 +50,19 @@ public class UserUseCase implements IUserServicePort {
         return Objects.equals(user.getRolId(), DomainConstants.ROL_OWNER_ID);
     }
 
+    @Override
+    public void registerUser(UserModel user) {
+
+        if(userPersistencePort.existUserByDni(user.getDni())){
+            throw new UserAlreadyExists(DomainConstants.USER_ALREADY_EXISTS);
+        }
+
+        user.setRolId(DomainConstants.ROL_CUSTOMER_ID);
+
+        user.setPassword(encryptPort.encryptPassword(user.getPassword()));
+
+        userPersistencePort.registerUser(user);
+    }
+
 
 }

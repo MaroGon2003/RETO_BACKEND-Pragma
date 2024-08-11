@@ -8,4 +8,6 @@ public interface IUserServicePort {
 
         boolean validateOwner(Long userId);
 
+        void registerUser(UserModel user);
+
 }

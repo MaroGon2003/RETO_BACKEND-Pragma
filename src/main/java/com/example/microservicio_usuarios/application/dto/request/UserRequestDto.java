@@ -43,7 +43,7 @@ public class UserRequestDto {
 
     @NotNull
     @Min(value = 2, message = "The rolId should be greater than 1")
-    @Max(value = 3, message = "The rolId should be less than 4")
+    @Max(value = 4, message = "The rolId should be less than 5")
     private Long rolId;
 
 }

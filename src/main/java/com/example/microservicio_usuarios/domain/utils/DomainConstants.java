@@ -7,6 +7,7 @@ public class DomainConstants {
     }
 
     public static final Long ROL_OWNER_ID = 2L;
+    public static final Long ROL_CUSTOMER_ID = 4L;
 
 
     public static final String USER_NOT_FOUND = "User not found";

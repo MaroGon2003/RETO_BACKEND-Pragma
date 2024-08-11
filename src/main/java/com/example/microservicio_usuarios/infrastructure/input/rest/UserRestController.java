@@ -31,8 +31,8 @@ public class UserRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content(mediaType = "application/json"))
     })
-    @PostMapping("/")
-    public ResponseEntity<Void> saveObject(@RequestBody @Valid  UserRequestDto userRequestDto) {
+    @PostMapping("/createUser")
+    public ResponseEntity<Void> createUser(@RequestBody @Valid  UserRequestDto userRequestDto) {
         userHandler.saveUser(userRequestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

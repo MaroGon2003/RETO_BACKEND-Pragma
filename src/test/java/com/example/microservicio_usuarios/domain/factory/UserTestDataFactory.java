@@ -52,4 +52,17 @@ public class UserTestDataFactory {
     }
 
 
+    public static UserModel getUserOwnerWithSetters() {
+        UserModel userModel = new UserModel();
+        userModel.setId(2L);
+        userModel.setName("Owner");
+        userModel.setSurName("Owner");
+        userModel.setDni(1234567890);
+        userModel.setPhone("+571234567890");
+        userModel.setEmail("owner@gmail.com");
+        userModel.setPassword("owner123");
+        userModel.setBirdDate(LocalDate.of(2000, 1, 1));
+
+        return userModel;
+    }
 }

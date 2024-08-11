@@ -10,4 +10,6 @@ public interface IUserPersistencePort {
 
     boolean existUserByDni(int dni);
 
+    void registerUser(UserModel user);
+
 }
