@@ -64,5 +64,16 @@ public class UserUseCase implements IUserServicePort {
         userPersistencePort.registerUser(user);
     }
 
+    @Override
+    public UserModel getUserById(Long userId) {
+
+        UserModel user = userPersistencePort.getUserById(userId);
+        if (user == null) {
+            throw new UserNotFoundException(DomainConstants.USER_NOT_FOUND);
+        }
+        return user;
+
+    }
+
 
 }

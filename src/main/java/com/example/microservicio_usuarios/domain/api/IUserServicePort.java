@@ -10,4 +10,6 @@ public interface IUserServicePort {
 
         void registerUser(UserModel user);
 
+        UserModel getUserById(Long userId);
+
 }

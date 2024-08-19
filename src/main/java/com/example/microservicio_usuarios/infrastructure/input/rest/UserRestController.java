@@ -1,6 +1,7 @@
 package com.example.microservicio_usuarios.infrastructure.input.rest;
 
 import com.example.microservicio_usuarios.application.dto.request.UserRequestDto;
+import com.example.microservicio_usuarios.application.dto.response.UserResponseDto;
 import com.example.microservicio_usuarios.application.handler.IUserHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,6 +41,11 @@ public class UserRestController {
     @GetMapping("/validate-owner/{id}")
     public ResponseEntity<Map<String,Object>> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(Map.of("owner", userHandler.validateOwner(id)));
+    }
+
+    @GetMapping("/get-user/{id}")
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userHandler.getUserById(id));
     }
 
 }
